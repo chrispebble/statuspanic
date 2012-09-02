@@ -1,0 +1,51 @@
+﻿@{
+    List<dynamic> bars = new List<dynamic>();
+    bars.Add(new { Name = "TRANSMIT", Height = 18, Remaining = 1 });
+    bars.Add(new { Name = "CODA", Height = 18, Remaining = 3 });
+    bars.Add(new { Name = "UNISON", Height = 18, Remaining = 3 });
+    bars.Add(new { Name = "CANDYBAR", Height = 18, Remaining = 2 });
+    int max = new Random().Next(100);
+    bars.Add(new { Name = "GENERAL", Height = max, Remaining = 0 });
+    bars.Add(new { Name = "SECRETS", Height = 15, Remaining = 2 });
+
+    /* DISPLAY */
+    int max_height = bars.Max(b => b.Height);
+
+    // change these
+    int max_bar_width = 300;
+    int default_padding = 12;
+
+    // don't change these
+    int total_outer = default_padding * 2; // (paddings + borders)
+    int max_width = Convert.ToInt32(Request.QueryString["width"]);
+    int num_bars = bars.Count;
+    decimal bar_width = Math.Floor((new List<decimal> { max_bar_width, (max_width - (total_outer * num_bars)) / num_bars }).Min());
+    decimal final_padding = (new List<decimal> { default_padding, (max_width - ((bar_width + total_outer) * num_bars)) / num_bars / 2 }).Max();
+    
+    int screenHeight = Convert.ToInt32(Request.QueryString["height"]);
+}
+
+<div>
+  <div class="bars">
+    @for (int i = 0; i < bars.Count; i++) {
+        var bar = bars[i];
+        decimal bar_height = Math.Floor(((decimal)bar.Height / max_height) * screenHeight);
+        decimal top_offset = screenHeight - bar_height;
+
+        <div class='bar' style='margin-top: @(top_offset)px; width: @(bar_width)px; padding: 0 @(final_padding)px;'>
+            <div class='header'><span class="total">@bar.Height</span> / <span class="remaining">@bar.Remaining</span></div>
+            <div class='view' id='bar_@(i+1)' style='height: @(bar_height)px;'></div>
+        </div>
+    }
+  </div>
+
+  <div style='clear:both'></div>
+
+    @foreach (var bar in bars) {
+        <div class='bar-title' style='width:@(bar_width)px; padding: 0 @(final_padding)px;'>
+            <span class='title'>@bar.Name</span>
+        </div>
+    }
+         
+</div>
+
