@@ -1,0 +1,31 @@
+﻿@{
+/* DATA */
+List<dynamic> data = new List<dynamic>();
+data.Add(new { Name = "TRANSMIT", Blurb = "Blurb", Blarb = "Blarb", Emails = "Z@statuspanic, H@statuspanic" });
+data.Add(new { Name = "UNISON", Blurb = "Blurb", Blarb = "Blarb", Emails = "Z@statuspanic, L@statuspanic, I@statuspanic" });
+data.Add(new { Name = "CODA", Blurb = "Blurb", Blarb = "Blarb", Emails = "Z@statuspanic, H@statuspanic, P@statuspanic" });
+data.Add(new { Name = "OTHER THING", Blurb = "Blurb", Blarb = "Blarb", Emails = "G@statuspanic, L@statuspanic" });
+data.Add(new { Name = "EXCITING", Blurb = "Blurb", Blarb = "Blarb", Emails = "L@statuspanic, G@statuspanic, I@statuspanic" });
+
+/* DISPLAY */
+int count = 0;
+}
+<div>
+  <table border='0' width='100%' cellpadding='0' cellspacing='10'>
+        @foreach(dynamic row in data) {
+            <text>
+            <tr@(count % 2 == 1 ? " class='alt'" : "")>
+                <td class="cell_1">@row.Name</td>
+                <td class="cell_2">@row.Blurb</td>
+                <td class="cell_3">@row.Blarb</td>
+                <td class="cell_4">
+                @foreach (string email in row.Emails.Split(new char[] {','})) {
+                    <text><img src="http://www.gravatar.com/avatar/@Utilities.MD5Hash(email)?s=40&d=monsterid"></text>
+                }
+                </td>
+            </tr>
+      </text>
+            count++;
+        }
+  </table>
+</div>
