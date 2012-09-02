@@ -114,6 +114,18 @@ public class DynamicJsonConverter : JavaScriptConverter
 
             return true;
         }
+
+        public override bool TrySetMember(SetMemberBinder binder, object value)
+        {
+            _dictionary[binder.Name] = value;
+
+            return true;
+        }
+
+        public IDictionary<string, object> GetDictionary() 
+        {
+            return this._dictionary;
+        }
     }
 
     #endregion
