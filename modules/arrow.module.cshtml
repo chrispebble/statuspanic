@@ -1,0 +1,27 @@
+﻿@{
+    // Using a random number purely for demo purposes
+    Random rand = new Random();
+    int number = rand.Next(-99, 99);
+
+    if (Request.QueryString["value"] != null) {
+        decimal parsedNumber = 0m;
+        if (Decimal.TryParse(Request.QueryString["value"], out parsedNumber)) {
+            number = Convert.ToInt32(parsedNumber * 100);   
+        }
+    }
+
+    string style = "zero-block";
+    string code = "K";
+    if (number > 0) {
+        style = "uparrow";
+        code = "A";
+    } else if (number < 0) {
+        style = "downarrow";
+        code = "A";
+    } 
+}
+
+<div>    
+    <span class="@style" id="arrow_icon">@code</span>
+    <span class="mega">@number%</span>
+</div>
