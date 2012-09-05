@@ -1,0 +1,16 @@
+﻿@{
+    /* DEFAULTS */
+    DateTime countdownStop = new DateTime();
+    DateTime.TryParse(Request.QueryString["stop"], out countdownStop);
+
+    TimeSpan countdownDifference = countdownStop.Subtract(DateTime.Now);
+    
+    string result = "COUNTDOWN FINISHED!"; 
+    if (countdownDifference.Days > 0) {
+        result = countdownDifference.Days + " DAYS <span class='event'>" + Request.QueryString["event"] + "</span>";
+    }
+}
+
+<div class='mega'>
+    <span class='icon'>H</span>@Html.Raw(result)
+</div>
