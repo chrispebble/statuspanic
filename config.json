@@ -23,8 +23,8 @@
       "update": 3600, 
       "args": {
         "event": "UNTIL SOMETHING",
-        "stop": 1274706000,
-        "timezone": "America/Chicago"
+        "stop": "2012-10-1",
+        "timezone": ""
       }
     },
     {
@@ -45,7 +45,7 @@
       "update": 60, 
       "args": {
         "timezone": "America/Chicago",
-        "format": "h:i a"
+        "format": "H:mm tt"
       }      
     },
     {
