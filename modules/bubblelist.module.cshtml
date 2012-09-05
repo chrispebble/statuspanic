@@ -1,0 +1,24 @@
+﻿@{
+    Dictionary<string, string> items = new Dictionary<string, string>();
+    items.Add("4|orange" , "1:02");
+    items.Add("9|red"    , "9 min");
+    items.Add("14|red"   , "5 min");
+    items.Add("19|red"   , "11 min");
+    items.Add("20|orange", "3:55");
+    }
+<ul>
+    @foreach(string key in items.Keys) { 
+        string color = key.Split(new char[] {'|'})[1];
+        string bubble = key.Split(new char[] {'|'})[0];
+        string line = items[key];
+        <text>
+        <li>
+            <span class="@color bubble">
+                <span class="background">E</span>
+                <span class="display">@bubble</span>
+            </span>
+            <span class="content">@line</span>
+        </li>
+        </text>
+    }
+</ul>
