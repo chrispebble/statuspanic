@@ -15,10 +15,10 @@ int count = 0;
         @foreach(dynamic row in data) {
             <text>
             <tr@(count % 2 == 1 ? " class='alt'" : "")>
-                <td class="cell_1">@row.Name</td>
-                <td class="cell_2">@row.Blurb</td>
-                <td class="cell_3">@row.Blarb</td>
-                <td class="cell_4">
+                <td class="cell_0">@row.Name</td>
+                <td class="cell_1">@row.Blurb</td>
+                <td class="cell_2">@row.Blarb</td>
+                <td class="cell_3">
                 @foreach (string email in row.Emails.Split(new char[] {','})) {
                     <text><img src="http://www.gravatar.com/avatar/@Utilities.MD5Hash(email)?s=40&d=monsterid"></text>
                 }

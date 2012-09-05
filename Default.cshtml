@@ -1,5 +1,5 @@
 ﻿@{
-    string rotate;
+    string rotate = string.Empty;
     string width;
     dynamic jsonData;
     
@@ -21,32 +21,31 @@
         rotate = "-webkit-transform: rotate(180deg);";
     }
 
-    width = string.IsNullOrWhiteSpace(jsonData.width as string) ? "100%" : jsonData.width + "px";
+    width = jsonData.width == null ? "100%" : jsonData.width + "px";
 }
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="en-US" xml:lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <title><%= (jsonData.Title != null ? jsonData.Title : "statuspanic generic status board")  %></title>
+    <title>@(jsonData.Title != null ? jsonData.Title : "statuspanic generic status board")</title>
     <link rel='stylesheet' type='text/css' href='resources/panic.css' />
     <script type='text/javascript' src='resources/jquery.js'></script>
     <script type='text/javascript' src='resources/board.js'></script>
     <style type='text/css'>
         #board {
-        <%if (!string.IsNullOrWhiteSpace(this.rotate)) {
-            Response.Write(this.rotate);
-            Response.Write("height: " + width);
-        } else {
-            Response.Write("width: " + width);
-        } %>
-    }
+            @if (!string.IsNullOrWhiteSpace(rotate)) {
+                @rotate
+                <text>height:</text> @width;
+            } else {
+                <text>width:</text> @width;
+            }
+        }
     </style>
 </head>
 <body>
     <div id='board'>
         @foreach(dynamic module in jsonData.modules) {
 
-            string style = module.width + "px;";
+            string style = "width: " + module.width + "px;";
             if (module.height != null) { style += " height:" + module.height + "px;"; }
 
             string argumentString = string.Empty;
