@@ -1,0 +1,14 @@
+﻿@{
+    string zipcode = Request.QueryString["zipcode"];
+    System.Xml.Linq.XDocument xdoc = System.Xml.Linq.XDocument.Load("http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=" + zipcode);
+    string city = xdoc.Root.Element("display_location").Element("full").Value;
+    string temp = xdoc.Root.Element("temp_f").Value;
+    string weather = xdoc.Root.Element("weather").Value;
+}
+
+<div class="vertical-center height-3">
+    <span class="jumbo">Weather in @city</span>
+    <div>
+        @temp &deg; F, @weather</li>
+    </div>
+</div>
